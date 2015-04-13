@@ -12,4 +12,6 @@
     (is (= false (prime? 4)))
     (is (= true (prime? 5)))
     (is (= false (prime? 6)))
-    (is (= true (prime? 7)))))
+    (is (= true (prime? 7)))
+    (is (= true (prime? 31)))
+    (is (= false (prime? 32)))))
