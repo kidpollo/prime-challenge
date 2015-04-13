@@ -8,7 +8,7 @@
 
 (defn test-primality [n]
   (if (or (divisible-in? n known-primes)
-          (divisible-in? n (range 2 (- n 1))))
+          (divisible-in? n (range 2 n)))
     false
     true))
 
