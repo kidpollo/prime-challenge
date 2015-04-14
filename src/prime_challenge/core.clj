@@ -1,5 +1,6 @@
 (ns prime-challenge.core
-  (:require [clojure.core.async :as async]))
+  (:require [clojure.pprint :as pprint]
+            [clojure.core.async :as async]))
 
 (def known-primes #{2, 3, 5, 7, 11, 13, 17, 19, 23, 29})
 
@@ -14,19 +15,6 @@
   (not (or (divisible-in? n known-primes)
            (divisible-in? n (range 2 n)))))
 
-(defn- primes-between
-  "Finds prime numbers within a range"
-  [start end]
-  (cond (> start end)
-        #{}
-
-        (< start 2)
-        (primes-between 2 end)
-
-        :else
-        (keep test-primality
-              (range start (+ end 1)))))
-
 (defn prime?
   "Returns true if n is prime, otherwise false"
   [n]
@@ -37,3 +25,27 @@
       (test-primality n known-primes))
 
     (boolean (some #{n} known-primes))))
+
+(defn multiplication-table
+  "Returns a multiplication table where [a b ...] -> [{nil a, a (* a a), b (* a b)}, {nil b, a (* b a), b (* b b), ... }]"
+  [coll]
+  (map (fn [prime]
+         (assoc
+           (into {} (map
+                      (fn [p]
+                        [p (* p prime)])
+                      coll))
+           nil
+           prime))
+       coll))
+
+(defn primes-between
+  "Finds prime numbers within a range"
+  [range]
+  (filter prime? range))
+
+(defn -main
+  [& _]
+  (let [primes (take 10 (primes-between (range)))
+        rows (multiplication-table primes)]
+    (pprint/print-table (into [nil] primes) rows)))

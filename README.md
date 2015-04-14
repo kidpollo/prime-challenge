@@ -14,5 +14,7 @@ The first row and column of the table should have the 10 primes, with each cell 
 
 ## Usage
 
+`lein primes`
+
 FIXME
 

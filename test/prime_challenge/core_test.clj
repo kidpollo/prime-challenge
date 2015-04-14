@@ -28,3 +28,8 @@
     (is (= true (prime? 7)))
     (is (= true (prime? 31)))
     (is (= false (prime? 32)))))
+
+(deftest multiplication-table-test
+  (is (= [{nil 1 1 (* 1 1) 2 (* 1 2)}
+          {nil 2 1 (* 2 1) 2 (* 2 2)}]
+         (multiplication-table [1 2]))))
